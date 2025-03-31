@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import TenantItem
+from .models import Member
 
-@admin.register(TenantItem)
-class TenantItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'created_at')
-    search_fields = ('name', 'description')
+@admin.register(Member)
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone', 'created_at')
+    search_fields = ('name', 'email', 'phone')
