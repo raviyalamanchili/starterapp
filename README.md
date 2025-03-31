@@ -2,6 +2,11 @@
 
 A minimal Django application with django-tenants support and Django Ninja API.
 
+## Prerequisites
+
+- Docker
+- Python 3.10+
+
 ## Quick Start
 
 ```bash
@@ -26,15 +31,13 @@ python manage.py migrate_schemas --shared
 python manage.py create_tenant --schema_name=public --name="Public Tenant" --domain-domain=localhost --domain-is_primary=True
 
 # Create a tenant
-python manage.py create_tenant --schema_name=tenant1 --name="Tenant 1" --domain-domain=tenant1.localhost --domain-is_primary=True
+python manage.py create_tenant --schema_name=tenant1 --name="Tenant 1" --domain-domain=tenant1 --domain-is_primary=True
 
-# Add domain to hosts file (requires admin/sudo privileges)
-# On macOS/Linux: sudo nano /etc/hosts
-# On Windows: edit C:\Windows\System32\drivers\etc\hosts as Administrator
-# Add: 127.0.0.1 tenant1.localhost
-
-# Create a superuser
+# Create a superuser for the public schema
 python manage.py createsuperuser
+
+# Create a superuser for the tenant1 schema
+python manage.py create_tenant_superuser --schema=tenant1
 
 # Run the development server
 python manage.py runserver
@@ -55,12 +58,12 @@ python manage.py runserver
 
 ## Structure
 
-- `shared_app` - Contains shared models (Client, Domain) accessible from all tenants
-- `tenant_app` - Contains tenant-specific models and logic
+- `shared_app` - Contains shared models in the public schema (Client, Domain) accessible from all tenants
+- `tenant_app` - Contains tenant-specific models and logic for each tenant schema
 - Django Ninja APIs in both apps
 
 ## Notes
 
-- Access tenant endpoints via tenant domain: `http://example.localhost:8000/api/tenant/items`
+- Access tenant endpoints via tenant subfolder: `http://localhost:8000/client/tenant1/api/tenant/items`
 - Access shared endpoints via any domain
 - Tenant schemas are automatically created and migrated (auto_create_schema = True) 
