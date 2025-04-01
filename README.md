@@ -72,3 +72,17 @@ python manage.py runserver
 - Access tenant app endpoints via tenant subfolder: `http://localhost:8000/client/tenant1/api/tenant/items`
 - Access shared app endpoints via base url: `http://localhost:8000/api/clients`
 - Tenant schemas are automatically created and migrated (auto_create_schema = True)
+
+## Testing
+
+This project uses pytest for automated testing with test isolation between tenants.
+
+### Running Tests
+
+```bash
+# Run all tests
+pytest
+
+# Run specific test file
+pytest tenant_app/tests/test_integration_members.py
+```
