@@ -1,6 +1,6 @@
 # Django Multi-Tenant Application
 
-A minimal Django application with django-tenants support and Django Ninja API.
+A minimal Django application with django-tenants support and Django Ninja API. Each tenant corresponds to a health insurance company, which has members (members of the health plan). Using django-tenants, the tenant data (e.g., members) is semi-isolated from other tenants via separate database schemas.
 
 ## Prerequisites
 
@@ -55,16 +55,16 @@ python manage.py runserver
 - `GET /api/domains` - List all domains
 
 ### Tenant API (Tenant-specific)
-- `GET /client/{domain}/api/tenant/items` - List items
-- `POST /client/{domain}/api/tenant/items` - Create item
-- `GET /client/{domain}/api/tenant/items/{id}` - Get item detail
-- `PUT /client/{domain}/api/tenant/items/{id}` - Update item
-- `DELETE /client/{domain}/api/tenant/items/{id}` - Delete item
+- `GET /client/{domain}/api/members` - List members
+- `POST /client/{domain}/api/members` - Create member
+- `GET /client/{domain}/api/members/{id}` - Get member detail
+- `PUT /client/{domain}/api/members/{id}` - Update member
+- `DELETE /client/{domain}/api/members/{id}` - Delete member
 
 ## Structure
 
 - `shared_app` - Contains shared models in the public schema (Client, Domain) accessible from all tenants
-- `tenant_app` - Contains tenant-specific models (Member, Provider) and logic for each tenant schema
+- `tenant_app` - Contains tenant-specific models (e.g., Member) and api for each tenant schema
 - Django Ninja APIs in both apps
 
 ## Notes
