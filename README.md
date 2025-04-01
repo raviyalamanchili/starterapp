@@ -43,27 +43,32 @@ python manage.py create_tenant_superuser --schema=tenant1
 python manage.py runserver
 ```
 
+## Admin Endpoints
+
+- `http://localhost:8000/admin/` - Django Admin for public schema
+- `http://localhost:8000/client/tenant1/admin/` - Django Admin for tenant1 schema
+
 ## API Endpoints
 
 ### Shared API (Public Schema)
-- `GET /api/shared/clients` - List all tenants
-- `GET /api/shared/domains` - List all domains
+- `GET /api/clients` - List all tenants
+- `GET /api/domains` - List all domains
 
 ### Tenant API (Tenant-specific)
-- `GET /api/tenant/items` - List items
-- `POST /api/tenant/items` - Create item
-- `GET /api/tenant/items/{id}` - Get item detail
-- `PUT /api/tenant/items/{id}` - Update item
-- `DELETE /api/tenant/items/{id}` - Delete item
+- `GET /client/{domain}/api/tenant/items` - List items
+- `POST /client/{domain}/api/tenant/items` - Create item
+- `GET /client/{domain}/api/tenant/items/{id}` - Get item detail
+- `PUT /client/{domain}/api/tenant/items/{id}` - Update item
+- `DELETE /client/{domain}/api/tenant/items/{id}` - Delete item
 
 ## Structure
 
 - `shared_app` - Contains shared models in the public schema (Client, Domain) accessible from all tenants
-- `tenant_app` - Contains tenant-specific models and logic for each tenant schema
+- `tenant_app` - Contains tenant-specific models (Member, Provider) and logic for each tenant schema
 - Django Ninja APIs in both apps
 
 ## Notes
 
-- Access tenant endpoints via tenant subfolder: `http://localhost:8000/client/tenant1/api/tenant/items`
-- Access shared endpoints via any domain
-- Tenant schemas are automatically created and migrated (auto_create_schema = True) 
+- Access tenant app endpoints via tenant subfolder: `http://localhost:8000/client/tenant1/api/tenant/items`
+- Access shared app endpoints via base url: `http://localhost:8000/api/clients`
+- Tenant schemas are automatically created and migrated (auto_create_schema = True)
