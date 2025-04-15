@@ -59,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_multitenant.middlewares.MultitenantMiddleware',
+    'starterapp.middleware.MultitenantMiddleware.MultitenantMiddleware',
 ]
 
 ROOT_URLCONF = 'starterapp.urls'
@@ -97,7 +99,7 @@ DATABASES = {
 }
 
 DATABASE_ROUTERS = (
-    'django_tenants.routers.TenantSyncRouter',
+     'django_tenants.routers.TenantSyncRouter',
 )
 
 # Django Tenants Configuration
