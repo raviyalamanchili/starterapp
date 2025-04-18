@@ -8,7 +8,8 @@ class MultitenantMiddleware:
 
   def __call__(self, request):
       if request.user and not request.user.is_anonymous:
-         if not request.user.account and not request.user.is_superuser:
+         print(request.user)
+         if not request.user and not request.user.is_superuser:
             print(
                "Logging out because user doesnt have account and not a superuser"
             )
